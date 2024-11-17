@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Student Dashboard</h1>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </header>
+        <div class="faculty-list">
+            <h2>Faculty Status</h2>
+            <select id="teacherSelect" onchange="filterTeachers()">
+                <option value="">All Teachers</option>
+                {% for teacher in teachers %}
+                    <option value="{{ teacher.name }}">{{ teacher.name }}</option>
+                {% endfor %}
+            </select>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Room Number</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for teacher in teachers %}
+                    <tr class="teacher-row">
+                        <td>{{ teacher.name }}</td>
+                        <td>{{ teacher.room_number }}</td>
+                        <td class="status-{{ teacher.status }}">{{ teacher.status }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

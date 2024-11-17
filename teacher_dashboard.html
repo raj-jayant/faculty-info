@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Teacher Dashboard</h1>
+            <a href="{{ url_for('logout') }}" class="logout-btn">Logout</a>
+        </header>
+        <div class="status-form">
+            <h2>Update Your Status</h2>
+            <form action="{{ url_for('update_status') }}" method="post">
+                <div class="form-group">
+                    <label>Current Status: <span class="status-{{ teacher.status }}">{{ teacher.status }}</span></label>
+                    <select name="status" required>
+                        <option value="present">Present</option>
+                        <option value="busy">Busy</option>
+                        <option value="absent">Absent</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Room Number:</label>
+                    <input type="text" name="room_number" value="{{ teacher.room_number }}" {% if teacher.status == 'absent' %}disabled{% endif %}>
+                </div>
+                <button type="submit">Update Status</button>
+            </form>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
